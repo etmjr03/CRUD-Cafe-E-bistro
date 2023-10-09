@@ -43,4 +43,14 @@ class Produto {
       return $this->preco;
   }
 
+  // Retorna o preco formatado
+  public function getPrecoFormatado(){
+    return 'R$'.number_format($this->getPreco(), 2);
+  }
+
+  // Retorna a imagem com a url formatada
+  public function getUrlImagem(){
+    return './img/'.$this->getImagem();
+  }
+
 }

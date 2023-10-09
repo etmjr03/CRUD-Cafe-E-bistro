@@ -69,11 +69,11 @@
                 <?php foreach($dadosCafes as $cafe): ?>
                 <div class="container-produto">
                     <div class="container-foto">
-                        <img src="<?php echo 'img/'.$cafe->getImagem() ?>">
+                        <img src="<?= $cafe->getUrlImagem() ?>">
                     </div>
-                    <p><?php echo $cafe->getNome() ?></p>
-                    <p><?php echo $cafe->getDescricao() ?></p>
-                    <p>R$ <?php echo number_format($cafe->getPreco(), 2)?></p>
+                    <p><?= $cafe->getNome() ?></p>
+                    <p><?= $cafe->getDescricao() ?></p>
+                    <p>R$ <?= $cafe->getPrecoFormatado()?></p>
                 </div>
                <?php endforeach; ?> 
             </div>
@@ -87,11 +87,11 @@
                 <?php foreach($dadosAlmoco as $prato): ?>
                 <div class="container-produto">
                     <div class="container-foto">
-                        <img src="<?= 'img/'.$prato->getImagem() ?>">
+                        <img src="<?= $prato->getUrlImagem() ?>">
                     </div>
                     <p><?= $prato->getNome() ?></p>
                     <p><?= $prato->getDescricao() ?></p>
-                    <p>R$ <?= number_format($prato->getPreco(), 2) ?></p>
+                    <p>R$ <?= $prato->getPrecoFormatado() ?></p>
                 </div>
                 <?php endforeach; ?>
             </div>

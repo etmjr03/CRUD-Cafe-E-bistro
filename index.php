@@ -1,30 +1,17 @@
 <?php
-$arrayCafes = [
-    [
-        "nome" => "café cremoso",
-        "descricao" => "Um dos melhores cafés que você vai tomar!",
-        "preco" => "5,00",
-        "img" => "./img/cafe-cremoso.jpg"
-    ],
-    [
-        'nome' => "Café com Leite",
-        'descricao' => "A harmonia do café e do leite, uma experiência reconfortante",
-        'preco' => "2.00",
-        'img' => "./img/cafe-com-leite.jpg"
-    ],
-    [
-        'nome' => "Cappuccino",
-        'descricao' => "Café suave, leite cremoso e uma pitada de sabor adocicado",
-        'preco' => "7.00",
-        'img' => "./img/cappuccino.jpg"
-    ],
-    [
-        'nome' => "Café Gelado",
-        'descricao' => "Café gelado refrescante, adoçado e com notas sutis de baunilha ou caramelo.",
-        'preco' => "3.00",
-        'img' => "./img/cafe-gelado.jpg"
-    ]
-];
+
+  require './src/conexao.php';
+
+  // Todas as querys que vão ser executadas
+  $selectCafe = 'SELECT * FROM produtos WHERE tipo = "Café" ORDER BY preco';
+  $selectAlmoco = 'SELECT * FROM produtos WHERE tipo = "Almoço" ORDER BY preco';
+
+  // Executa a query no bd *parametro(query a ser executada = String)*
+  $obCafes = $pdo->query($selectCafe)
+      ->fetchAll(PDO::FETCH_ASSOC);
+
+  $obAlmoco = $pdo->query($selectAlmoco)
+      ->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!doctype html>
@@ -57,10 +44,10 @@ $arrayCafes = [
                 <img class= "ornaments" src="img/ornaments-coffee.png" alt="ornaments">
             </div>
             <div class="container-cafe-manha-produtos">
-                <?php foreach($arrayCafes as $cafe): ?>
+                <?php foreach($obCafes as $cafe): ?>
                 <div class="container-produto">
                     <div class="container-foto">
-                        <img src="<?php echo $cafe['img']?>">
+                        <img src="<?php echo 'img/'.$cafe['imagem']?>">
                     </div>
                     <p><?php echo $cafe['nome']?></p>
                     <p><?php echo $cafe['descricao']?></p>
@@ -75,14 +62,16 @@ $arrayCafes = [
                 <img class= "ornaments" src="img/ornaments-coffee.png" alt="ornaments">
             </div>
             <div class="container-almoco-produtos">
+                <?php foreach($obAlmoco as $prato): ?>
                 <div class="container-produto">
                     <div class="container-foto">
-                        <img src="img/bife.jpg">
+                        <img src="<?= 'img/'.$prato['imagem'] ?>">
                     </div>
-                    <p>Bife</p>
-                    <p>Bife, arroz com feijão e uma deliciosa batata frita</p>
-                    <p>R$ 27.90</p>
+                    <p><?= $prato['nome'] ?></p>
+                    <p><?= $prato['descricao'] ?></p>
+                    <p>R$ <?= $prato['preco'] ?></p>
                 </div>
+                <?php endforeach; ?>
             </div>
 
         </section>
